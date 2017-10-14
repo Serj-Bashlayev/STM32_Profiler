@@ -47,11 +47,11 @@ void TIM6_DAC_IRQHandler(void)
   static uint16_t delayT6_sec = 0;
   static bool trigger = false;
 
+  // TIM6 interrup owerflow
   if (TIM_GetITStatus(TIM6, TIM_IT_Update) == SET)
   {
     TIM_ClearITPendingBit(TIM6, TIM_IT_Update);
-    // Прерывание по переполнению TIM6
-    // Моргаем светодиодом 1Гц
+    // Led blink 1 Hz
     if (++delayT6_sec >= 500)
     {
       delayT6_sec = 0;
