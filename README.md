@@ -4,7 +4,8 @@ Code profiling for STM32
 Features
 ---
 Simple and fast code profiler for STM32 ARM Cortex-M CPU family.   
-Allow measuring time intervals and printing it in table view to SWO debug port.
+Allow measuring time intervals and printing it in table view to SWO debug port.   
+Use Data Watchpoint and Trace (DWT) cycle counter (DWT_CYCCNT).
 >*Example data print*   
 ```
 Profiling "Start" sequence:                                
@@ -15,15 +16,14 @@ u8g_SetFont                   :     5292 us | +        4 us
 HAL_Delay(10)                 : 10004967 us | +  9999675 us
 ```
 Minimum measure time = 0 µs   
-Maximum measure time = 4294967 s (49,7 days)   
+Maximum measure time = 59,6 sec at core clock 72 MHz   
 Time accuracy ±1 µs.
 
-Easy to use, easy to port to another CPU and programming language.
+Easy to use. Easy to port to another ARM architecture and programming language.
 
 *Technical background:   
-SWO is a dedicated pin of ARM's Cortex-M debug interface. While it can be used to output various information
-in real time by the CPU, it's main usage is terminal I/O in real time with very low intrusion. Most programs can
-perform debug outputs without losing their real time behavior.*
+SWO is a dedicated pin of ARM's Cortex-M debug interface. While it can be used to output various information in real time by the CPU, it's main usage is terminal I/O in real time with very low intrusion. Most programs can perform debug outputs without losing their real time behavior.*   
+*Cycle Count Register (DWT_CYCCNT): 32-bit, incrementing (up) cycle counter. When enabled, this counter counts the number of core cycles. Counting is suspended when the core is halted in Debug state. CYCCNT wraps to 0 on overflow.*
 
 How to use
 ---
@@ -98,4 +98,4 @@ For more information, how to use the Keil µVision Debug (printf) Viewer see  ht
 You can also use ST-LINK - Printf via SWO viewer feature or other debugging software with SWO Viewer support.
 
 -------------   
-<a name="notes"></a>`note 1` The maximum number of events is defined in MAX_PROFILING_EVENT_COUNT (profiling.h)
+<a name="notes"></a>`note 1` The maximum number of events is defined in MAX_EVENT_COUNT (profiling.h)
