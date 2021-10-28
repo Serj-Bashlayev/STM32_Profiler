@@ -67,6 +67,7 @@ void PROFILING_START(const char *profile_name)
   event_count = 0;
 
   CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;
+  DWT->LAR = 0xC5ACCE55;
   DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk; // enable counter
   //DWT->CYCCNT  = time_start = 0;
   time_start = DWT->CYCCNT;
